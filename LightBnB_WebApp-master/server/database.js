@@ -114,9 +114,7 @@ const getAllProperties = function(options, limit = 10) {
 if (minPrice || maxPrice) {
   if (minPrice && maxPrice) {
     queryParams.push(`${minPrice}`, `${maxPrice}`)
-    console.log("USER input for minand max:", queryParams)
     queryString += `WHERE cost_per_night > $${queryParams.length - 1} AND cost_per_night < $${queryParams.length}`
-    console.log("SQL AFTER min and mix:", queryString)
   }
 
   if (minPrice && !maxPrice) {
@@ -145,11 +143,8 @@ if (minPrice || maxPrice) {
     queryParams.push(`%${options.city}%`)
     if (queryParams.length != 1) {
       queryString += ` AND city LIKE $${queryParams.length}`
-      console.log("USER input for city WITH and:", queryString)
-      console.log("INPUT:", queryParams)
     } else {
       queryString += `WHERE city LIKE $${queryParams.length}`
-      console.log("USER input for city WITH where", queryString)
     }
   }
 
@@ -186,7 +181,7 @@ exports.getAllProperties = getAllProperties;
 
 const addProperty = function(property) {
   
-  const values = [property.owner_id, property.title, property.description, property.thumbnail_photo_url, property.cover_photo_url, property.cost_per_night, property.street, property.city, property.province, property.post_code, property.country, property.parking_spaces, property.number_of_bathrooms, property.number_of_bedrooms]
+  const values = [property.owner_id, property.title, property.description, property.thumbnail_photo_url, property.cover_photo_url, property.cost_per_night, property.street, property.city, property.province, property.post_code, property.country, property.parking_spaces, property.number_of_bathrooms, property.number_of_bedrooms];
 
   return pool.query(`
   INSERT INTO properties (owner_id, title, description, thumbnail_photo_url, cover_photo_url, cost_per_night, street, city, province, post_code, country, parking_spaces, number_of_bathrooms, number_of_bedrooms)
